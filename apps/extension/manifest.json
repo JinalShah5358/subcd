@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "IFP Subsidy Assistant",
+  "version": "0.1.0",
+  "description": "Fills a prepared IFP subsidy case into the portal form. Reviews and submission stay with the CA.",
+
+  "permissions": ["storage", "activeTab", "scripting"],
+
+  "host_permissions": [
+    "https://ifp.gujarat.gov.in/*",
+    "http://localhost:4000/*"
+  ],
+
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_title": "IFP Subsidy Assistant"
+  },
+
+  "options_page": "src/options.html",
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

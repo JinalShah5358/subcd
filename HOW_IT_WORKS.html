@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IFP Subsidy Platform &mdash; How it works</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --panel-2:#fbfcfd; --ink:#16202c; --ink-2:#4a5a6a;
+  --ink-3:#74849a; --line:#dfe4ea; --line-2:#eef1f5;
+  --brand:#1f5f8b; --brand-2:#2b7fb8; --brand-ink:#ffffff;
+  --ok:#1f7a4d; --ok-bg:#e7f5ee; --warn:#8a6100; --warn-bg:#fdf3dd;
+  --danger:#a32626; --danger-bg:#fdeaea; --info:#28527a; --info-bg:#e8f0f8;
+  --mute-bg:#eef1f5;
+  --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  --radius:10px; --shadow:0 1px 2px rgba(20,30,45,.06),0 4px 14px rgba(20,30,45,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1319; --panel:#151c24; --panel-2:#121920; --ink:#e6ecf3; --ink-2:#a9b8c8;
+    --ink-3:#7d8ea1; --line:#26313d; --line-2:#1d262f;
+    --brand:#4ea3d8; --brand-2:#3d8ec2; --brand-ink:#08121a;
+    --ok:#66d19e; --ok-bg:#12281f; --warn:#e5bb62; --warn-bg:#2a2314;
+    --danger:#f1918f; --danger-bg:#2c1717; --info:#8bbbe6; --info-bg:#132232;
+    --mute-bg:#1c242d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--brand)}
+code{font-family:var(--mono);font-size:.87em;background:var(--mute-bg);padding:1px 5px;border-radius:4px;border:1px solid var(--line-2)}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .4em}
+h1{font-size:25px;letter-spacing:-.02em}
+h2{font-size:20px;letter-spacing:-.01em;margin-top:0}
+h3{font-size:16px;margin-top:1.7em}
+h4{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin-top:1.5em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:22px}
+li{margin:.3em 0}
+.lede{font-size:16.5px;color:var(--ink-2)}
+
+header.top{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.top-inner{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:var(--brand-ink);font-weight:700;font-size:12px;flex:none}
+.title-block{flex:1;min-width:200px}
+.title-block .t{font-weight:650;font-size:15.5px;letter-spacing:-.01em}
+.title-block .s{font-size:12px;color:var(--ink-3)}
+nav.tabs{max-width:1080px;margin:0 auto;padding:0 16px;display:flex;gap:2px;overflow-x:auto}
+nav.tabs button{appearance:none;border:0;background:none;font:inherit;font-size:13px;color:var(--ink-2);padding:9px 12px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;border-radius:6px 6px 0 0}
+nav.tabs button:hover{color:var(--ink);background:var(--panel-2)}
+nav.tabs button.on{color:var(--brand);border-bottom-color:var(--brand);font-weight:600}
+main{max-width:1080px;margin:0 auto;padding:26px 24px 90px}
+section.view{display:none}
+section.view.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:0 0 18px;box-shadow:var(--shadow)}
+.panel.tight{padding:14px 16px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.badge{display:inline-block;font-size:11px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.b-ok{background:var(--ok-bg);color:var(--ok)}
+.b-warn{background:var(--warn-bg);color:var(--warn)}
+.b-danger{background:var(--danger-bg);color:var(--danger)}
+.b-info{background:var(--info-bg);color:var(--info)}
+.b-mute{background:var(--mute-bg);color:var(--ink-3);border-color:var(--line)}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);margin-bottom:14px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);background:var(--panel-2);padding:9px 12px;border-bottom:1px solid var(--line);font-weight:650}
+td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:last-child td{border-bottom:0}
+
+.callout{border-left:3px solid var(--brand);background:var(--info-bg);padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 16px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-bg)}
+.callout.ok{border-left-color:var(--ok);background:var(--ok-bg)}
+.callout.stop{border-left-color:var(--danger);background:var(--danger-bg)}
+.callout p:last-child{margin-bottom:0}
+.callout .hd{font-weight:650;font-size:13px;margin-bottom:3px}
+
+/* numbered step flow */
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 22px 52px;margin:0}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:-1px;width:32px;height:32px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700;font-size:14px}
+ol.steps>li::after{content:"";position:absolute;left:15.5px;top:34px;bottom:2px;width:1px;background:var(--line)}
+ol.steps>li:last-child{padding-bottom:0}
+ol.steps>li:last-child::after{display:none}
+ol.steps h3{margin:2px 0 .3em;font-size:15.5px}
+ol.steps p{margin-bottom:.6em}
+ol.steps .who{font-size:11.5px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+
+/* pipeline chips */
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:4px 0 16px}
+.flow .node{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600}
+.flow .node.hi{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.flow .node.stop{background:var(--danger-bg);border-color:var(--danger);color:var(--danger)}
+.flow .arr{color:var(--ink-3);font-size:14px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.split>div{padding:16px 18px}
+.split>div:first-child{border-right:1px solid var(--line);background:var(--ok-bg)}
+.split>div:last-child{background:var(--danger-bg)}
+@media(max-width:640px){.split{grid-template-columns:1fr}.split>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+.split h4{margin-top:0;color:inherit;opacity:.85}
+.split ul{margin:0;padding-left:20px;font-size:13.5px}
+
+/* mock screens */
+.mock{border:1px solid var(--line);border-radius:10px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden;font-size:12.5px}
+.mock .bar{background:var(--panel-2);border-bottom:1px solid var(--line);padding:7px 11px;display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-3)}
+.mock .dot{width:9px;height:9px;border-radius:50%;background:var(--line);flex:none}
+.mock .body{padding:13px 14px}
+.mock .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line-2)}
+.mock .row:last-child{border-bottom:0}
+.mock .lbl{color:var(--ink-3)}
+.mock .btn{display:inline-block;background:var(--brand);color:var(--brand-ink);border-radius:7px;padding:6px 12px;font-weight:650;font-size:12px}
+.mock .btn.ghost{background:none;border:1px solid var(--line);color:var(--ink-2)}
+.field-demo{border:2px solid var(--ok);background:var(--ok-bg);border-radius:6px;padding:5px 9px;font-family:var(--mono);font-size:11.5px}
+.field-demo.skip{border:2px dashed var(--warn);background:var(--warn-bg)}
+.field-demo.none{border:1px solid var(--line);background:var(--panel-2);color:var(--ink-3)}
+
+.kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px}
+.kpi .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:650}
+.kpi .v{font-size:23px;font-weight:700;letter-spacing:-.02em;margin-top:1px}
+.kpi .d{font-size:12px;color:var(--ink-3);line-height:1.45}
+footer{max-width:1080px;margin:0 auto;padding:0 24px 60px;color:var(--ink-3);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="logo">IFP</div>
+    <div class="title-block">
+      <div class="t">IFP Subsidy Platform &mdash; how it works</div>
+      <div class="s">A plain-language walkthrough for the people who will use it</div>
+    </div>
+    <span class="badge b-info">Walkthrough</span>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-v="v-what" class="on">What it is</button>
+    <button data-v="v-journey">A case, start to finish</button>
+    <button data-v="v-ext">The browser extension</button>
+    <button data-v="v-roles">Who can do what</button>
+    <button data-v="v-admin">Super admin &amp; licences</button>
+    <button data-v="v-safe">Limits &amp; safety</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ==================== WHAT IT IS ==================== -->
+<section class="view on" id="v-what">
+
+  <div class="panel">
+    <h1>What this system does</h1>
+    <p class="lede">
+      A Chartered Accountant firm prepares Gujarat IFP subsidy applications for its
+      clients. Today that means a spreadsheet per client, a folder of scanned documents,
+      and one person re-typing the same forty fields into the government portal at
+      eleven at night. This platform holds the case instead &mdash; and when the
+      application is finally ready, types it into the portal form for you.
+    </p>
+
+    <div class="callout stop">
+      <div class="hd">It does not file the application.</div>
+      <p>
+        It never presses submit, never solves the CAPTCHA, never logs in to the portal
+        for you, and never holds your portal password. The last click is always a
+        human's. That is a deliberate design limit, not a feature that is coming later
+        &mdash; <a href="#v-safe" onclick="go('v-safe')">see Limits &amp; safety</a>.
+      </p>
+    </div>
+
+    <h3>The three pieces</h3>
+    <div class="grid g3">
+      <div class="kpi">
+        <div class="k">1 &middot; Web app</div>
+        <div class="v">The case file</div>
+        <div class="d">Clients, cases, project and finance details, documents, consent,
+          checks. This is where the work happens.</div>
+      </div>
+      <div class="kpi">
+        <div class="k">2 &middot; Browser extension</div>
+        <div class="v">The typing</div>
+        <div class="d">Takes a finished case and fills the portal form, marking every
+          box it touched. You review and submit.</div>
+      </div>
+      <div class="kpi">
+        <div class="k">3 &middot; Super admin</div>
+        <div class="v">The firms</div>
+        <div class="d">Creates firms, sets their licence and limits, suspends them.
+          Cannot see inside any of them.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Why a case, and not a spreadsheet</h2>
+    <p>
+      A spreadsheet will hold the same numbers. What it will not do is tell you that
+      the commercial production date is before the loan sanction date, that the Udyam
+      number does not match the entity type, or that you are missing the bank
+      sanction letter &mdash; before the file reaches the portal, rather than six
+      weeks later in a query memo.
+    </p>
+    <p>Each case carries five things a spreadsheet does not:</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th style="width:170px">What</th><th>Why it matters</th></tr>
+        <tr><td><strong>Readiness score</strong></td><td>One number saying how close this case is to being fileable, so you know which of your 40 cases to open this morning.</td></tr>
+        <tr><td><strong>Automatic checks</strong></td><td>21 structural checks run on demand &mdash; formats, arithmetic, date ordering, required fields, documents, consent. Blocking problems stop the case from being marked ready.</td></tr>
+        <tr><td><strong>Document checklist</strong></td><td>Which papers the scheme requires for <em>this</em> application type, and which are still missing.</td></tr>
+        <tr><td><strong>Client consent</strong></td><td>Recorded, timestamped and versioned, because you are handling someone's PAN and bank details on their behalf.</td></tr>
+        <tr><td><strong>An audit trail</strong></td><td>Who opened what, who changed what, who revealed an identifier, and when. It cannot be edited by anyone, including a firm admin.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Where your data sits</h2>
+    <div class="grid g2">
+      <div>
+        <h4>Each firm is sealed off</h4>
+        <p>
+          Two independent walls separate one firm's data from another's: the
+          application will not build a query without the firm attached, and the
+          database itself refuses to return a row from another firm even if the
+          application asks wrongly. Either one alone would be enough on a good day.
+          Both together is what you want on a bad one.
+        </p>
+      </div>
+      <div>
+        <h4>Identifiers are encrypted, not merely hidden</h4>
+        <p>
+          PAN, GSTIN, Udyam and loan account numbers are stored encrypted with a key
+          belonging to your firm alone, and they leave the system masked
+          (<code>ABCDE&bull;&bull;&bull;&bull;F</code>). Seeing a full value takes a
+          specific permission and writes an audit line naming the person who looked.
+          Aadhaar is stored as the last four digits only.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== JOURNEY ==================== -->
+<section class="view" id="v-journey">
+
+  <div class="panel">
+    <h1>One case, start to finish</h1>
+    <p class="lede">
+      This is the whole working day, in order. Nothing here is automatic except the
+      checks &mdash; every step is something a person decides to do.
+    </p>
+    <div class="flow">
+      <span class="node">Client</span><span class="arr">&rarr;</span>
+      <span class="node">Case</span><span class="arr">&rarr;</span>
+      <span class="node">Details</span><span class="arr">&rarr;</span>
+      <span class="node">Checks</span><span class="arr">&rarr;</span>
+      <span class="node">Documents</span><span class="arr">&rarr;</span>
+      <span class="node">Consent</span><span class="arr">&rarr;</span>
+      <span class="node hi">Ready to file</span><span class="arr">&rarr;</span>
+      <span class="node">Portal</span><span class="arr">&rarr;</span>
+      <span class="node stop">You submit</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <ol class="steps">
+
+      <li>
+        <div class="who">Staff or CA &middot; once per client</div>
+        <h3>Add the client</h3>
+        <p>
+          The business applying for the subsidy: its legal name, entity type, PAN,
+          GSTIN, Udyam registration, address, and the promoters behind it. You enter
+          this once; every future case for that client reuses it.
+        </p>
+        <p>
+          If someone has already added that PAN, the system says so instead of
+          creating a second copy. Two half-filled records for the same business is
+          how a wrong figure ends up in a filing.
+        </p>
+      </li>
+
+      <li>
+        <div class="who">CA</div>
+        <h3>Open a case</h3>
+        <p>
+          A case is one application: this client, this scheme, this application type
+          &mdash; capital subsidy, interest subsidy, provisional or final eligibility.
+          It gets a case number and starts as a <span class="badge b-mute">Draft</span>.
+        </p>
+        <p>
+          A client with three applications running has three cases. They do not share
+          a status, a checklist, or a deadline, because they do not share a fate.
+        </p>
+      </li>
+
+      <li>
+        <div class="who">Staff or CA</div>
+        <h3>Fill in the sections</h3>
+        <p>The case is divided the way the application itself is divided:</p>
+        <div class="tablewrap">
+          <table>
+            <tr><th style="width:150px">Section</th><th>What goes in</th></tr>
+            <tr><td><strong>Project</strong></td><td>Where the unit is, what it makes, land and building, plant and machinery, commercial production date.</td></tr>
+            <tr><td><strong>Loan</strong></td><td>Bank, branch, sanction number and date, amount, rate, tenure, moratorium.</td></tr>
+            <tr><td><strong>Investment</strong></td><td>The capital breakdown the subsidy is calculated on.</td></tr>
+            <tr><td><strong>Employment</strong></td><td>Headcount, split by category as the scheme asks for it.</td></tr>
+            <tr><td><strong>First sale</strong></td><td>First sale invoice and date &mdash; the anchor for several eligibility windows.</td></tr>
+          </table>
+        </div>
+        <p class="lede" style="font-size:14px">
+          The readiness score moves as you go. You can stop at any point; nothing is
+          lost and nothing is submitted.
+        </p>
+      </li>
+
+      <li>
+        <div class="who">Anyone &middot; as often as you like</div>
+        <h3>Run the checks</h3>
+        <p>
+          Press <strong>Run validation</strong> and the case is examined against the
+          scheme's structural rules. Each finding lands in one of three buckets:
+        </p>
+        <p style="margin-bottom:.5em">
+          <span class="badge b-danger">Blocking</span>
+          &nbsp;Must be fixed. The case cannot be marked ready to file.
+        </p>
+        <p style="margin-bottom:.5em">
+          <span class="badge b-warn">Warning</span>
+          &nbsp;Probably wrong. You can proceed, knowingly.
+        </p>
+        <p>
+          <span class="badge b-info">Info</span>
+          &nbsp;Worth a look. Nothing is blocked.
+        </p>
+        <div class="callout warn">
+          <div class="hd">Read this one carefully.</div>
+          <p>
+            The checks that run are <strong>structural</strong> &mdash; formats,
+            arithmetic, dates in the right order, required fields present. A further
+            set of rules about <em>eligibility</em> (turnover bands, subsidy
+            percentages, qualifying periods) depends on the Government Resolution
+            that constitutes the scheme, and that document has not been read by
+            anyone building this. Those rules are switched off, and the screen lists
+            exactly which ones. <strong>A clean validation does not mean the client
+            is eligible.</strong> It means the paperwork is internally consistent.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <div class="who">Staff or CA</div>
+        <h3>Work the document checklist</h3>
+        <p>
+          The scheme's required papers for this application type appear as a list,
+          each one marked <span class="badge b-mute">Required</span>,
+          <span class="badge b-ok">Present</span>,
+          <span class="badge b-warn">Not available</span> or
+          <span class="badge b-mute">Not applicable</span>. Marking something "not
+          available" is a decision the file records, so nobody has to remember in
+          March why a certificate was left out in January.
+        </p>
+      </li>
+
+      <li>
+        <div class="who">CA only</div>
+        <h3>Record the client's consent</h3>
+        <p>
+          You are handling someone's PAN, bank details and business figures. Before
+          the case can be marked ready, the client's consent is recorded against the
+          exact version of the consent text they agreed to &mdash; so if the wording
+          changes later, the file still shows what they actually saw.
+        </p>
+      </li>
+
+      <li>
+        <div class="who">CA or firm admin</div>
+        <h3>Mark it ready to file</h3>
+        <p>
+          The case moves <span class="badge b-mute">Draft</span> &rarr;
+          <span class="badge b-info">In review</span> &rarr;
+          <span class="badge b-ok">Ready to file</span>. The system refuses the last
+          step while a blocking check is unresolved or consent is missing. This is the
+          one gate in the system that says no.
+        </p>
+      </li>
+
+      <li>
+        <div class="who">CA &middot; on the government portal</div>
+        <h3>File it &mdash; yourself</h3>
+        <p>
+          Open <code>ifp.gujarat.gov.in</code>, sign in with your own credentials, and
+          open the application form. Click the extension, pick the case, press
+          <strong>Fill form</strong>. It types what it knows and highlights every box
+          it touched.
+        </p>
+        <p>
+          Then you check the form, solve the CAPTCHA, and press submit. Afterwards,
+          come back and move the case to <span class="badge b-info">Filed</span> with
+          the acknowledgement number.
+        </p>
+      </li>
+
+    </ol>
+  </div>
+
+  <div class="panel tight">
+    <h4 style="margin-top:0">After filing</h4>
+    <p style="margin-bottom:0">
+      The case keeps moving: <span class="badge b-info">Filed</span> &rarr;
+      <span class="badge b-info">Acknowledged</span> &rarr; possibly
+      <span class="badge b-warn">Query raised</span> &rarr;
+      <span class="badge b-ok">Approved</span> or
+      <span class="badge b-danger">Rejected</span>. Every transition records who made
+      it and when, so the history of a two-year application is one screen rather than
+      an email thread.
+    </p>
+  </div>
+
+</section>
+
+<!-- ==================== EXTENSION ==================== -->
+<section class="view" id="v-ext">
+
+  <div class="panel">
+    <h1>The browser extension</h1>
+    <p class="lede">
+      A small Chrome add-on that takes a case you have already prepared and types it
+      into the portal's application form. It is the only part of this system that
+      touches the government website at all.
+    </p>
+
+    <div class="split">
+      <div>
+        <h4>What it does</h4>
+        <ul>
+          <li>Types values into boxes on the form</li>
+          <li>Outlines every box it filled in green</li>
+          <li>Outlines what it skipped in amber, and says why</li>
+          <li>Warns you if the portal's form has changed since it was taught</li>
+          <li>Runs only when you click it, only on the portal</li>
+        </ul>
+      </div>
+      <div>
+        <h4>What it will never do</h4>
+        <ul>
+          <li>Press submit &mdash; there is no code that could</li>
+          <li>Read, solve or forward a CAPTCHA</li>
+          <li>Read a password box, or store your portal login</li>
+          <li>Run on its own, on a timer, or in the background</li>
+          <li>Send back any value it typed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Setting it up &mdash; once</h2>
+    <ol class="steps">
+      <li>
+        <h3>Install it</h3>
+        <p>
+          In Chrome or Edge, open <code>chrome://extensions</code>, turn on
+          <strong>Developer mode</strong>, choose <strong>Load unpacked</strong> and
+          select the <code>apps/extension</code> folder. The IFP icon appears in the
+          toolbar. (Pin it &mdash; you will use it often.)
+        </p>
+      </li>
+      <li>
+        <h3>Pair it with your firm</h3>
+        <p>
+          In the web app, open <strong>Browser extension</strong> &rarr;
+          <strong>Pair a browser</strong>. You get a short code, good for ten minutes
+          and usable once. Click the extension, paste the code, and give the browser
+          a name you will recognise later &mdash; "office desktop", "Rakesh laptop".
+        </p>
+        <div class="callout ok">
+          <div class="hd">Your portal password is never entered here.</div>
+          <p>
+            Pairing links the extension to <em>your platform account</em>, not to the
+            government portal. The extension works inside the portal session you are
+            already signed in to, the same way a person reading over your shoulder
+            would.
+          </p>
+        </div>
+      </li>
+      <li>
+        <h3>Teach it the form &mdash; once per form</h3>
+        <p>
+          Nobody building this has ever seen the portal's form after login, so
+          <strong>no field positions ship with the extension</strong>. Guessing would
+          be worse than nothing: a wrong guess types a PAN into whatever box happened
+          to match.
+        </p>
+        <p>So the first time, a CA teaches it:</p>
+        <div class="flow" style="margin-top:10px">
+          <span class="node">Open the real form</span><span class="arr">&rarr;</span>
+          <span class="node">"Capture this page"</span><span class="arr">&rarr;</span>
+          <span class="node">Match each box to a field</span><span class="arr">&rarr;</span>
+          <span class="node hi">Activate</span>
+        </div>
+        <p>
+          The capture records what boxes exist &mdash; their labels, types and options
+          &mdash; and nothing that was typed in them. Back in the web app you say which
+          of our fields belongs in each box: "Name of Applicant (as per PAN)" is
+          <code>client.legalName</code>. Then you activate the map and the firm is done
+          forever, until the portal changes.
+        </p>
+        <p>
+          That matching is deliberately manual. It is a judgement, and the cost of
+          getting it wrong is a misfiled government application.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Using it &mdash; every time</h2>
+    <div class="grid g2">
+      <div>
+        <ol class="steps">
+          <li>
+            <h3>Open the form, signed in as yourself</h3>
+            <p>The extension is disabled everywhere except the portal, and says so.</p>
+          </li>
+          <li>
+            <h3>Pick the case</h3>
+            <p>
+              The list shows your firm's cases with their status and readiness. A case
+              at 60% will fill 60% of the form, and tell you what it could not.
+            </p>
+          </li>
+          <li>
+            <h3>Preview, or fill</h3>
+            <p>
+              <strong>Preview</strong> reports what would happen and changes nothing on
+              the page. <strong>Fill form</strong> actually types.
+            </p>
+          </li>
+          <li>
+            <h3>Check every field</h3>
+            <p>
+              Green outline: filled. Amber dashed: skipped, with a reason. Nothing:
+              the extension never had anything to say about that box &mdash; including
+              every CAPTCHA and password box, which it refuses by design.
+            </p>
+          </li>
+          <li>
+            <h3>Solve the CAPTCHA and submit</h3>
+            <p>Yours. Always.</p>
+          </li>
+        </ol>
+      </div>
+      <div>
+        <div class="mock" style="max-width:340px;margin-left:auto">
+          <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;IFP Subsidy Assistant</div>
+          <div class="body">
+            <div style="font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:650;margin-bottom:6px">Case</div>
+            <div class="field-demo none" style="margin-bottom:4px">CASE-2026-0184 &mdash; Shree Industries</div>
+            <div style="font-size:11.5px;color:var(--ok);margin-bottom:12px">ready to file &middot; 96% ready</div>
+            <div style="display:flex;gap:7px;margin-bottom:14px">
+              <span class="btn ghost">Preview</span><span class="btn">Fill form</span>
+            </div>
+            <div style="font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:650;margin-bottom:6px">28 filled, 3 not</div>
+            <div class="row"><span class="lbl">project.pincode</span><span style="color:var(--ok);font-weight:650">Filled</span></div>
+            <div class="row"><span class="lbl">client.pan</span><span style="color:var(--ok);font-weight:650">Filled</span></div>
+            <div class="row"><span class="lbl">loan.sanctionNo</span><span style="color:var(--warn);font-weight:650">No data</span></div>
+            <div class="row"><span class="lbl">captcha_code</span><span style="color:var(--warn);font-weight:650">Refused</span></div>
+            <div style="margin-top:12px;font-size:11.5px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:8px">
+              This never presses submit. Check the form, then submit it yourself.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>When the portal changes</h2>
+    <p>
+      Government portals get redesigned without notice. When the extension was taught
+      the form it also recorded the form's <em>shape</em> &mdash; how many boxes, of
+      what kinds, named what. Before filling anything it compares.
+    </p>
+    <div class="callout warn">
+      <div class="hd">If the shape no longer matches</div>
+      <p>
+        It stops and tells you the portal appears to have changed, and records that on
+        the run. Capture the page again, re-check the matches, activate. The
+        alternative &mdash; filling confidently into boxes that have moved &mdash; is
+        the failure mode worth spending code to avoid.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== ROLES ==================== -->
+<section class="view" id="v-roles">
+
+  <div class="panel">
+    <h1>Who can do what</h1>
+    <p class="lede">
+      Five roles. The differences are not about seniority &mdash; they are about which
+      mistakes each person is in a position to make, and which of a client's secrets
+      each person needs to see.
+    </p>
+
+    <div class="tablewrap">
+      <table>
+        <tr>
+          <th style="width:130px">Role</th>
+          <th>Can</th>
+          <th style="width:220px">Cannot</th>
+        </tr>
+        <tr>
+          <td><strong>Staff</strong><br><span class="badge b-mute">data entry</span></td>
+          <td>Add and edit clients and cases, fill in every section, run the checks, work the document checklist.</td>
+          <td>See a full PAN or account number, record consent, or mark a case ready to file.</td>
+        </tr>
+        <tr>
+          <td><strong>CA</strong><br><span class="badge b-info">the professional</span></td>
+          <td>Everything Staff can, plus reveal identifiers (audited), record client consent, move a case between statuses, and use the browser extension.</td>
+          <td>Invite users, change firm settings, or read the audit log.</td>
+        </tr>
+        <tr>
+          <td><strong>Reviewer</strong><br><span class="badge b-mute">read-only</span></td>
+          <td>Read every case and the audit log. Useful for a partner or an internal check.</td>
+          <td>Change anything at all.</td>
+        </tr>
+        <tr>
+          <td><strong>Firm admin</strong><br><span class="badge b-ok">runs the firm</span></td>
+          <td>Everything above, plus invite and disable users, edit firm settings, and read the full audit log.</td>
+          <td>Edit or delete an audit entry &mdash; nobody can. Or see another firm.</td>
+        </tr>
+        <tr>
+          <td><strong>Platform admin</strong><br><span class="badge b-warn">runs the service</span></td>
+          <td>Create firms, set their licence, suspend and restore them, see counts.</td>
+          <td><strong>See any client, case, document or identifier &mdash; in any firm, including their own.</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="hd">Why Staff cannot reveal a PAN</div>
+      <p>
+        They do not need it. Entering a PAN and reading one back are different acts:
+        typing it in comes from the document in front of them, reading it back out is
+        how an identifier leaves the building. Every reveal, by anyone, writes a line
+        in the audit log naming the person and the record.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== SUPER ADMIN ==================== -->
+<section class="view" id="v-admin">
+
+  <div class="panel">
+    <h1>Super admin &amp; licences</h1>
+    <p class="lede">
+      A separate console, reached by a platform administrator, for running the service
+      itself: which firms exist, what each one has paid for, and when that runs out.
+    </p>
+
+    <div class="callout stop">
+      <div class="hd">The super admin cannot open a firm.</div>
+      <p>
+        They see firm names, counts and licence state. They cannot see a client, a
+        case, a document or an identifier &mdash; in any firm, including their own.
+        Two separate things make that true. The account holds <em>one</em> permission,
+        so every client, case, document and audit screen refuses it outright; and
+        the queries it can run have no column for that data to arrive in, so even a
+        mistake in the first layer returns nothing.
+      </p>
+    </div>
+
+    <h3>It is a different application</h3>
+    <p>
+      A super admin does not get the CA's app with half of it greyed out. They sign in
+      to their own console &mdash; three screens, and no others exist for them:
+    </p>
+    <div class="grid g3">
+      <div class="kpi">
+        <div class="k">Overview</div>
+        <div class="v">What needs doing</div>
+        <div class="d">Licences about to lapse, suspended firms, recently added firms,
+          then the totals.</div>
+      </div>
+      <div class="kpi">
+        <div class="k">Firms</div>
+        <div class="v">Every tenant</div>
+        <div class="d">Status, licence, and usage against each limit. Add a firm,
+          change a licence, suspend or restore.</div>
+      </div>
+      <div class="kpi">
+        <div class="k">Renewals</div>
+        <div class="v">Who to call</div>
+        <div class="d">Only what has ended or ends soon, expired first.</div>
+      </div>
+    </div>
+    <p style="margin-bottom:0">
+      No Clients, no Cases, no browser extension, no Users, no firm settings, no audit
+      log. Those screens would all be empty, and an empty screen reads as a fault
+      rather than as a boundary.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>Creating a firm</h2>
+    <ol class="steps">
+      <li>
+        <h3>Fill in the firm and its first administrator</h3>
+        <p>
+          Name, short slug, optional FRN and contact details &mdash; and the name and
+          email of the person who will run it. Both together, always: a firm nobody can
+          sign in to is not a tenant, it is a row somebody has to clean up later.
+        </p>
+      </li>
+      <li>
+        <h3>Set the licence</h3>
+        <p>
+          Plan, the date it runs out, and the limits. A new firm defaults to a
+          <span class="badge b-info">Trial</span> that expires in 30 days.
+        </p>
+      </li>
+      <li>
+        <h3>They receive an invitation, not a password</h3>
+        <p>
+          The new administrator gets a single-use link, valid seven days, and chooses
+          their own password. Nobody at the platform ever knows it &mdash; passwords
+          are stored as a one-way hash and cannot be read back or reset into a known
+          value.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>What a licence controls</h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th style="width:165px">Setting</th><th>Effect</th></tr>
+        <tr>
+          <td><strong>Plan</strong></td>
+          <td>A label &mdash; Trial, Starter, Professional, Enterprise. Choosing one fills in the usual limits for that tier; you can then change any of them for this firm.</td>
+        </tr>
+        <tr>
+          <td><strong>Valid until</strong></td>
+          <td>The date the licence expires. Leave it empty for a licence that does not expire.</td>
+        </tr>
+        <tr>
+          <td><strong>Grace period</strong></td>
+          <td>Days after expiry during which nothing changes except a warning banner. Renewals are late; files should not stop because an invoice did.</td>
+        </tr>
+        <tr>
+          <td><strong>Max users</strong></td>
+          <td>How many people the firm may have. Inviting past the limit is refused with a message naming the limit.</td>
+        </tr>
+        <tr>
+          <td><strong>Max clients</strong></td>
+          <td>How many client businesses the firm may hold.</td>
+        </tr>
+        <tr>
+          <td><strong>Max cases</strong></td>
+          <td>How many applications. Counted for the whole firm, not per year.</td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      Any limit can be left empty, which means unlimited. The console shows each firm's
+      usage against its limits &mdash; <code>18 / 25 clients</code> &mdash; so a firm
+      about to hit a wall is visible before they telephone about it.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>What happens when a licence expires</h2>
+    <div class="flow">
+      <span class="node">Valid</span><span class="arr">&rarr;</span>
+      <span class="node">Expiring soon</span><span class="arr">&rarr;</span>
+      <span class="node">In grace</span><span class="arr">&rarr;</span>
+      <span class="node stop">Read-only</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <tr><th style="width:150px">State</th><th style="width:130px">When</th><th>What the firm sees</th></tr>
+        <tr>
+          <td><span class="badge b-ok">Valid</span></td>
+          <td>Before expiry</td>
+          <td>Nothing. Normal working.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-info">Expiring soon</span></td>
+          <td>Within 30 days</td>
+          <td>A quiet banner with the date.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-warn">In grace</span></td>
+          <td>After expiry, within the grace period</td>
+          <td>A prominent banner. Everything still works.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-danger">Read-only</span></td>
+          <td>After the grace period</td>
+          <td>They can still sign in, read every case, and export. They cannot create or change anything until the licence is renewed.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="hd">Why read-only, and not locked out</div>
+      <p>
+        These are a CA firm's professional records &mdash; statutory files they may be
+        obliged to produce. Cutting off access to a client's case file because a renewal
+        invoice is three weeks late would be an inappropriate thing for a piece of
+        software to do. Expiry stops new work; it does not confiscate old work.
+      </p>
+      <p>
+        <strong>Suspension is the different lever.</strong> A suspended firm cannot sign
+        in at all. That is for abuse or a demand from the firm itself, it requires a
+        written reason, it is recorded in the audit trail, and it still deletes nothing.
+      </p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>What the console shows</h2>
+    <div class="mock">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;Platform &rarr; Firms</div>
+      <div class="body">
+        <div class="tablewrap" style="margin:0;border:0">
+          <table>
+            <tr><th>Firm</th><th>Licence</th><th>Valid until</th><th>Users</th><th>Clients</th><th>Cases</th></tr>
+            <tr>
+              <td><strong>Demo CA Firm</strong><br><span style="color:var(--ink-3);font-size:12px">demo-ca-firm</span></td>
+              <td><span class="badge b-ok">Professional</span></td>
+              <td>31 Mar 2027</td><td>5 / 25</td><td>18 / 250</td><td>41 / &infin;</td>
+            </tr>
+            <tr>
+              <td><strong>Patel &amp; Associates</strong><br><span style="color:var(--ink-3);font-size:12px">patel-associates</span></td>
+              <td><span class="badge b-info">Trial</span></td>
+              <td><span style="color:var(--warn)">in 6 days</span></td>
+              <td>2 / 3</td><td>4 / 10</td><td>4 / 10</td>
+            </tr>
+            <tr>
+              <td><strong>Mehta Advisory</strong><br><span style="color:var(--ink-3);font-size:12px">mehta-advisory</span></td>
+              <td><span class="badge b-danger">Expired</span></td>
+              <td><span style="color:var(--danger)">14 Aug 2026</span></td>
+              <td>3 / 10</td><td>22 / 50</td><td>30 / 50</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Counts, names and licence state. Notice what is not on this screen and cannot be
+      put on it: a client's name, a case, a document, a PAN.
+    </p>
+    <h3>Renewals</h3>
+    <p style="margin-bottom:0">
+      A second screen lists only the firms whose licence has ended or is about to,
+      expired first and then soonest &mdash; because the useful question is never
+      "show me every firm", it is "who do I have to telephone this week". Firms with
+      no end date never appear there; there is nothing to renew.
+    </p>
+  </div>
+
+</section>
+
+<!-- ==================== SAFETY ==================== -->
+<section class="view" id="v-safe">
+
+  <div class="panel">
+    <h1>Limits &amp; safety</h1>
+    <p class="lede">
+      Some of these are promises about what the software will not do. They are worth
+      reading, because several of them are the reason it is safe to point this thing
+      at a government portal at all.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>About the portal</h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th style="width:230px">It will never</th><th>Why that holds</th></tr>
+        <tr><td><strong>Press submit</strong></td><td>There is no code anywhere in the extension that submits a form. A test reads the source and fails the build if one ever appears.</td></tr>
+        <tr><td><strong>Touch a CAPTCHA</strong></td><td>CAPTCHA boxes are refused by name, by label and by the box they sit in &mdash; checked when the form is learned, and checked again against the live page before anything is typed.</td></tr>
+        <tr><td><strong>Read a password box</strong></td><td>Password, file and hidden boxes are refused outright. A refused box is recorded without any way to address it, so nothing downstream can reach it.</td></tr>
+        <tr><td><strong>Store your portal login</strong></td><td>It never asks for one. It works inside the session you signed in to yourself, and it cannot read cookies.</td></tr>
+        <tr><td><strong>Run on its own</strong></td><td>No timers, no background runs, no reacting to pages loading. Every single action starts with a click in the popup.</td></tr>
+        <tr><td><strong>Run on any other site</strong></td><td>It is permitted on one address, and it checks the tab against the server's list before it will inject anything.</td></tr>
+        <tr><td><strong>Send back what it typed</strong></td><td>The record of a run holds which fields were attempted and what happened &mdash; filled, skipped, refused. There is nowhere in it for a value.</td></tr>
+      </table>
+    </div>
+    <p>
+      None of these are settings anybody can switch. They are properties of the code,
+      asserted by tests that have each been deliberately broken once to confirm the
+      test actually notices.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>About eligibility</h2>
+    <div class="callout warn">
+      <div class="hd">The system does not decide who is eligible.</div>
+      <p>
+        21 structural checks run: formats, arithmetic, dates in the right order,
+        required fields, documents, consent. A further 7 rules &mdash; the ones about
+        turnover bands, subsidy percentages and qualifying periods &mdash; depend on
+        the Government Resolution that actually constitutes the scheme, and that
+        document has not been read. Those rules are <strong>off</strong>, their
+        parameters are placeholders, and the screen lists exactly which checks are not
+        running so nobody mistakes silence for approval.
+      </p>
+      <p>
+        Turning them on is a decision for someone holding the notification, not for
+        someone who thinks the numbers look about right.
+      </p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>About your data</h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th style="width:230px">What</th><th>How it is kept</th></tr>
+        <tr><td>PAN, GSTIN, Udyam, loan account</td><td>Encrypted with a key belonging to your firm alone, tied to the exact row it sits in. Moved elsewhere, it will not decrypt &mdash; it does not quietly become someone else's identifier.</td></tr>
+        <tr><td>Aadhaar</td><td><strong>Last four digits only.</strong> Storing a full Aadhaar is blocked by the database itself, pending a legal decision nobody has taken.</td></tr>
+        <tr><td>Passwords</td><td>A modern one-way hash. Cannot be read back, by anyone, including whoever runs the platform.</td></tr>
+        <tr><td>Invitation and reset links</td><td>Single use, time limited, and stored only as a hash &mdash; the link in your email exists nowhere in the database.</td></tr>
+        <tr><td>Deletions</td><td>Records are marked deleted, not erased. Retention defaults to eight years and the system only ever <em>flags</em> data that is ageing out &mdash; it never deletes on its own.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>What is not built yet</h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th style="width:200px">Not yet</th><th>Meaning</th></tr>
+        <tr><td><strong>Document uploads</strong></td><td>The checklist tracks which papers you have; it does not yet store the files.</td></tr>
+        <tr><td><strong>The real portal field map</strong></td><td>Nobody has had access to the authenticated form. The first firm to use this teaches it, once.</td></tr>
+        <tr><td><strong>The 7 eligibility rules</strong></td><td>Waiting on the Government Resolution.</td></tr>
+        <tr><td><strong>Billing</strong></td><td>Licences are set by hand in the super admin console. There is no payment collection.</td></tr>
+        <tr><td><strong>Multi-page portal forms</strong></td><td>A learned form is one page. A wizard across several pages is learned one page at a time.</td></tr>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  IFP Subsidy Platform &mdash; walkthrough. For the architecture, the risks and the open
+  questions, see <code>PROJECT_PLAN.html</code>. For running it, see <code>README.md</code>.
+</footer>
+
+<script>
+function go(id){
+  document.querySelectorAll('section.view').forEach(function(s){ s.classList.toggle('on', s.id === id); });
+  document.querySelectorAll('nav.tabs button').forEach(function(b){ b.classList.toggle('on', b.dataset.v === id); });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+}
+document.getElementById('tabs').addEventListener('click', function(e){
+  var b = e.target.closest('button');
+  if (b) go(b.dataset.v);
+});
+if (location.hash && document.getElementById(location.hash.slice(1))) go(location.hash.slice(1));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>IFP Subsidy Assistant</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="head">
+      <div class="brand">
+        <span class="logo">IFP</span>
+        <div>
+          <p class="title">Subsidy Assistant</p>
+          <p class="sub" id="firm-name">…</p>
+        </div>
+      </div>
+      <button id="settings" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
+    </header>
+
+    <main id="view-loading" class="panel">
+      <p class="muted">Checking…</p>
+    </main>
+
+    <!-- Not paired ------------------------------------------------------ -->
+    <main id="view-pair" class="panel" hidden>
+      <h2>Pair this browser</h2>
+      <p class="muted">
+        In the IFP platform, open <strong>Browser extension</strong> and generate a pairing code.
+        It is valid for ten minutes.
+      </p>
+      <label class="field">
+        <span>Pairing code</span>
+        <input id="pair-code" placeholder="ABCD-EFGH" autocomplete="off" spellcheck="false" />
+      </label>
+      <label class="field">
+        <span>Name this browser</span>
+        <input id="pair-label" placeholder="Office desktop" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Platform API</span>
+        <input id="pair-api" autocomplete="off" spellcheck="false" />
+      </label>
+      <button id="pair-submit" class="primary">Pair</button>
+      <p class="note">
+        Your IFP portal password is never entered here and never stored. This pairs the browser to
+        your platform account only.
+      </p>
+      <p id="pair-error" class="error" hidden></p>
+    </main>
+
+    <!-- Paired ---------------------------------------------------------- -->
+    <main id="view-main" class="panel" hidden>
+      <div id="host-warning" class="banner warn" hidden></div>
+      <div id="drift-warning" class="banner warn" hidden></div>
+
+      <label class="field">
+        <span>Case</span>
+        <select id="case-select"></select>
+      </label>
+      <p id="case-meta" class="muted small"></p>
+
+      <div id="no-mapping" class="banner info" hidden>
+        <strong>No field map yet.</strong>
+        <span>
+          Open the IFP application form, then use <em>Learn this page</em> below so the assistant
+          knows where each value goes.
+        </span>
+      </div>
+
+      <div class="actions">
+        <button id="preview" class="secondary">Preview</button>
+        <button id="fill" class="primary">Fill form</button>
+      </div>
+
+      <p class="note">
+        This fills the boxes. <strong>It never presses submit.</strong> Check every field, solve
+        the CAPTCHA and submit yourself.
+      </p>
+
+      <details class="learn">
+        <summary>Learn this page</summary>
+        <p class="muted small">
+          Records which controls this form has, so values can be mapped to them. It reads the form
+          structure only — never passwords, file pickers or CAPTCHA.
+        </p>
+        <label class="field">
+          <span>Label for this capture</span>
+          <input id="capture-label" placeholder="Portal form, 20 Sep 2026" autocomplete="off" />
+        </label>
+        <button id="capture" class="secondary">Capture this page</button>
+      </details>
+
+      <div id="results" hidden>
+        <h3>Result <span id="result-summary" class="muted small"></span></h3>
+        <ul id="result-list" class="results"></ul>
+        <button id="clear-marks" class="link">Clear highlights</button>
+      </div>
+
+      <p id="main-error" class="error" hidden></p>
+    </main>
+
+    <!-- Settings -------------------------------------------------------- -->
+    <main id="view-settings" class="panel" hidden>
+      <h2>Settings</h2>
+      <dl class="kv">
+        <dt>Signed in as</dt>
+        <dd id="set-user">—</dd>
+        <dt>Firm</dt>
+        <dd id="set-firm">—</dd>
+        <dt>Works on</dt>
+        <dd id="set-hosts">—</dd>
+        <dt>Pairing expires</dt>
+        <dd id="set-expiry">—</dd>
+      </dl>
+      <button id="unpair" class="danger">Unpair this browser</button>
+      <button id="settings-back" class="link">Back</button>
+      <p class="note">
+        Unpairing removes the stored device credential from this browser. Nothing on the platform
+        is deleted.
+      </p>
+    </main>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

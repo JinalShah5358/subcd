@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>IFP Subsidy Assistant — settings</title>
+    <link rel="stylesheet" href="popup.css" />
+    <style>
+      body { width: auto; max-width: 620px; margin: 24px auto; padding: 0 16px; }
+    </style>
+  </head>
+  <body>
+    <h2>IFP Subsidy Assistant</h2>
+    <p class="muted">Version <span id="version"></span></p>
+
+    <div class="panel" style="padding-left: 0; padding-right: 0">
+      <label class="field">
+        <span>Platform API base URL</span>
+        <input id="api-base" spellcheck="false" autocomplete="off" />
+      </label>
+      <button id="save" class="primary" style="align-self: start">Save</button>
+      <p id="saved" class="note" hidden>Saved.</p>
+    </div>
+
+    <h3>What this extension does</h3>
+    <ul class="muted small">
+      <li>Fills the IFP application form with data you already prepared in the platform.</li>
+      <li>Marks every box it touched, and lists every box it could not fill.</li>
+      <li>Runs only when you click, and only on the IFP portal.</li>
+    </ul>
+
+    <h3>What it never does</h3>
+    <ul class="muted small">
+      <li>Press submit, or trigger a submit any other way.</li>
+      <li>Read, solve, forward or bypass a CAPTCHA.</li>
+      <li>Read a password field, or store your IFP credentials or cookies.</li>
+      <li>Run in the background, on a schedule, or on any other website.</li>
+      <li>Send the values it typed back to the platform — only field names and outcomes.</li>
+    </ul>
+
+    <script src="options.js" type="module"></script>
+  </body>
+</html>

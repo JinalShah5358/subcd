@@ -1,0 +1,32 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+
+# Secrets — never commit. .env.example holds NAMES ONLY.
+.env
+.env.*
+!.env.example
+
+# Local key material (dev only)
+*.pem
+*.key
+.keys/
+
+# Logs / OS / editor
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Prisma generated client
+prisma/generated/
+
+# Test artefacts
+.vitest/
+playwright-report/
+test-results/
