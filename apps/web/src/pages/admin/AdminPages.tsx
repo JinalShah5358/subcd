@@ -19,8 +19,6 @@ import { ApiError } from '@/api/client';
 import { adminApi, type AuditRow, type FirmProfile, type FirmUser } from '@/api/endpoints';
 import { useAuth } from '@/auth/AuthContext';
 import {
-  DescriptionItem,
-  DescriptionList,
   EmptyState,
   ErrorState,
   LoadingState,
@@ -674,27 +672,6 @@ export function FirmSettingsPage() {
             </CardContent>
           </Card>
         )}
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Not editable here</CardTitle>
-            <CardDescription>
-              These are platform-level facts about your tenant, not preferences.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <DescriptionList>
-              <DescriptionItem term="Firm ID">
-                <span className="masked text-xs">{firm.id}</span>
-              </DescriptionItem>
-              <DescriptionItem term="Slug">{firm.slug}</DescriptionItem>
-              <DescriptionItem term="Status">
-                <StatusBadge status={firm.status} />
-              </DescriptionItem>
-              <DescriptionItem term="Data region">{firm.dataRegion}</DescriptionItem>
-            </DescriptionList>
-          </CardContent>
-        </Card>
 
         <Alert variant="warning">
           <AlertTriangle className="h-4 w-4" />

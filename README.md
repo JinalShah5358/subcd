@@ -8,6 +8,9 @@ prepared case into the portal form.
 > Submitting on the government portal — logging in, solving the CAPTCHA, pressing
 > submit — remains entirely with the CA.
 
+Just want it running? [`RUN.md`](RUN.md) is the runbook — daily start, first-time
+setup, sign-in accounts and what to do when something will not start.
+
 New here? [`HOW_IT_WORKS.html`](HOW_IT_WORKS.html) is a plain-language walkthrough
 of the whole thing — the case workflow, the extension, roles, licensing and the
 limits — written for the people who will use it rather than build it. Open it in

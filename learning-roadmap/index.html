@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Full-Stack Mastery Roadmap</title>
+<meta name="description" content="A 38-week senior-mentored roadmap and day-by-day timetable for React, TypeScript, Node.js, C#/.NET, OOP, architecture, design patterns and AI engineering." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f8fb; --surface:#ffffff; --surface-2:#f1f3f9; --surface-3:#e8ebf4;
+  --border:#dfe3ed; --border-strong:#c9cfdf;
+  --text:#141827; --text-2:#3d4459; --muted:#6b7288;
+  --accent:#4f46e5; --accent-soft:#eef0ff; --accent-ink:#3730a3;
+  --ok:#0f8a5f; --ok-soft:#e6f6ef;
+  --warn:#b45309; --warn-soft:#fdf3e3;
+  --danger:#c02638; --danger-soft:#fdecef;
+  --c-ts:#2f74c0; --c-react:#0b93b8; --c-node:#3f8f3f; --c-cs:#7b48c8; --c-oop:#c2185b; --c-arch:#b4690e; --c-proj:#0f766e; --c-ai:#c2410c;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(16,20,40,.05), 0 8px 24px rgba(16,20,40,.06);
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c0e16; --surface:#141827; --surface-2:#1a1f31; --surface-3:#222840;
+    --border:#262c42; --border-strong:#39415e;
+    --text:#eef0f7; --text-2:#c3c9dc; --muted:#8b93ad;
+    --accent:#8b8cf9; --accent-soft:#1e2140; --accent-ink:#c3c4ff;
+    --ok:#4ade80; --ok-soft:#10261c;
+    --warn:#fbbf24; --warn-soft:#2a2110;
+    --danger:#fb7185; --danger-soft:#2c1420;
+    --c-ts:#6aa9e9; --c-react:#4fd1e5; --c-node:#6fcf6f; --c-cs:#b892f6; --c-oop:#f472b6; --c-arch:#f0b429; --c-proj:#2dd4bf; --c-ai:#fb923c;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0e16; --surface:#141827; --surface-2:#1a1f31; --surface-3:#222840;
+  --border:#262c42; --border-strong:#39415e;
+  --text:#eef0f7; --text-2:#c3c9dc; --muted:#8b93ad;
+  --accent:#8b8cf9; --accent-soft:#1e2140; --accent-ink:#c3c4ff;
+  --ok:#4ade80; --ok-soft:#10261c;
+  --warn:#fbbf24; --warn-soft:#2a2110;
+  --danger:#fb7185; --danger-soft:#2c1420;
+  --c-ts:#6aa9e9; --c-react:#4fd1e5; --c-node:#6fcf6f; --c-cs:#b892f6; --c-oop:#f472b6; --c-arch:#f0b429; --c-proj:#2dd4bf; --c-ai:#fb923c;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:86px}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:15.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{line-height:1.22; margin:0; letter-spacing:-.018em; font-weight:700}
+h2{font-size:clamp(23px,3.2vw,30px)}
+h3{font-size:18.5px}
+h4{font-size:15.5px}
+p{margin:.55em 0}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:var(--mono); font-size:.86em; background:var(--surface-2); border:1px solid var(--border); padding:.1em .38em; border-radius:5px}
+pre{font-family:var(--mono); font-size:12.6px; line-height:1.65; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; overflow-x:auto; margin:.7em 0; color:var(--text-2)}
+pre code{background:none;border:none;padding:0;font-size:inherit}
+ul,ol{margin:.5em 0; padding-left:1.15em}
+li{margin:.24em 0}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+.topbar{position:sticky; top:0; z-index:60; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(12px); border-bottom:1px solid var(--border)}
+.topbar-in{max-width:1400px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:12px}
+.brand{display:flex; align-items:center; gap:9px; font-weight:800; letter-spacing:-.02em; font-size:15px; margin-right:auto}
+.brand .dot{width:22px;height:22px;border-radius:7px;background:linear-gradient(140deg,var(--accent),var(--c-react));flex:none}
+.tb-progress{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.bar{width:104px;height:6px;border-radius:99px;background:var(--surface-3);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--c-react));transition:width .3s}
+.iconbtn{background:var(--surface); border:1px solid var(--border); color:var(--text-2); border-radius:9px; height:34px; padding:0 11px; font:inherit; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px}
+.iconbtn:hover{border-color:var(--border-strong); color:var(--text)}
+
+.shell{max-width:1400px; margin:0 auto; padding:0 16px; display:grid; grid-template-columns:238px minmax(0,1fr); gap:34px; align-items:start}
+.sidenav{position:sticky; top:66px; max-height:calc(100vh - 80px); overflow-y:auto; padding:22px 0 40px}
+.sidenav h5{margin:16px 0 6px; font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:700}
+.sidenav a{display:block; padding:5px 10px; border-radius:7px; color:var(--text-2); font-size:13.4px; border-left:2px solid transparent}
+.sidenav a:hover{background:var(--surface-2); text-decoration:none; color:var(--text)}
+.sidenav a.on{background:var(--accent-soft); color:var(--accent-ink); border-left-color:var(--accent); font-weight:600}
+main{padding:22px 0 100px; min-width:0}
+section{margin:0 0 56px; scroll-margin-top:86px}
+.sec-head{margin-bottom:16px}
+.eyebrow{font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.lede{color:var(--text-2); font-size:16px; max-width:76ch}
+
+.card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow)}
+.grid{display:grid; gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
+.tag{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; padding:2.5px 8px; border-radius:99px; background:var(--surface-2); border:1px solid var(--border); color:var(--text-2)}
+.tag.a{background:var(--accent-soft); color:var(--accent-ink); border-color:transparent}
+.tag.ok{background:var(--ok-soft); color:var(--ok); border-color:transparent}
+.tag.warn{background:var(--warn-soft); color:var(--warn); border-color:transparent}
+.kpi{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px}
+.kpi b{display:block; font-size:25px; letter-spacing:-.03em; line-height:1.15}
+.kpi span{font-size:12.5px; color:var(--muted)}
+
+.hero{padding:40px 0 10px}
+.hero h1{font-size:clamp(30px,5.2vw,46px); font-weight:800; letter-spacing:-.035em}
+.hero .sub{font-size:17px; color:var(--text-2); max-width:70ch; margin-top:12px}
+.pill-row{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px}
+.pill{font-size:12.2px; font-weight:600; padding:4px 11px; border-radius:99px; border:1px solid var(--border); background:var(--surface); color:var(--text-2)}
+
+.phase{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--pc,var(--accent)); border-radius:var(--radius); padding:16px 18px}
+.phase .ph-top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.phase .num{font-family:var(--mono); font-size:12px; color:var(--pc,var(--accent)); font-weight:600}
+.phase .wk{margin-left:auto; font-size:12px; color:var(--muted); font-family:var(--mono)}
+.phase p{font-size:14px; color:var(--text-2); margin:.4em 0 0}
+.phase .out{margin-top:10px; font-size:13px; color:var(--muted)}
+.phase .out b{color:var(--text-2); font-weight:600}
+
+.tt-tools{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px}
+.tt-tools input[type=search]{flex:1 1 220px; min-width:180px; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:8px 12px; color:var(--text); font:inherit; font-size:14px}
+.tt-tools input[type=search]:focus{outline:2px solid var(--accent); outline-offset:1px}
+.chip{font:inherit; font-size:12.5px; font-weight:600; padding:6px 11px; border-radius:99px; border:1px solid var(--border); background:var(--surface); color:var(--text-2); cursor:pointer}
+.chip.on{background:var(--accent); border-color:var(--accent); color:#fff}
+.week{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); margin-bottom:10px; overflow:hidden}
+.week>summary{list-style:none; cursor:pointer; padding:13px 16px; display:flex; align-items:center; gap:12px}
+.week>summary::-webkit-details-marker{display:none}
+.week>summary:hover{background:var(--surface-2)}
+.wk-no{font-family:var(--mono); font-size:11.5px; font-weight:600; color:#fff; background:var(--wc,var(--accent)); border-radius:7px; padding:3px 8px; flex:none}
+.wk-title{font-weight:650; font-size:15px; min-width:0}
+.wk-theme{font-size:12.6px; color:var(--muted); margin-left:auto; text-align:right; display:none}
+@media(min-width:760px){.wk-theme{display:block}}
+.wk-done{font-family:var(--mono); font-size:11.5px; color:var(--muted); flex:none}
+.wk-body{padding:4px 16px 18px; border-top:1px solid var(--border)}
+.day{display:flex; gap:11px; padding:11px 0; border-bottom:1px dashed var(--border)}
+.day:last-of-type{border-bottom:none}
+.day input{margin-top:4px; width:16px; height:16px; accent-color:var(--accent); flex:none; cursor:pointer}
+.day .dno{font-family:var(--mono); font-size:11px; color:var(--muted); width:38px; flex:none; padding-top:3px}
+.day .dbody{min-width:0}
+.day .dt{font-weight:650; font-size:14.4px}
+.day .dd{font-size:13.6px; color:var(--text-2)}
+.day.checked .dt,.day.checked .dd{opacity:.5; text-decoration:line-through}
+.wk-extra{display:grid; gap:9px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); margin-top:14px}
+.xbox{background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; font-size:13.2px; color:var(--text-2)}
+.xbox b{display:block; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:3px}
+
+.track{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); overflow:hidden; margin-bottom:16px}
+.track-head{padding:16px 20px; border-bottom:1px solid var(--border); border-top:3px solid var(--tc,var(--accent))}
+.track-head h3{display:flex; align-items:center; gap:9px; flex-wrap:wrap}
+.track-head .why{font-size:13.8px; color:var(--text-2); margin-top:6px}
+.track-body{padding:4px 20px 20px}
+.lvl{margin-top:16px}
+.lvl>b{display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--tc,var(--accent)); font-weight:700}
+.lvl ul{margin-top:4px; font-size:14px; color:var(--text-2)}
+.wwh{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:14px}
+.wwh div{background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; font-size:13.3px; color:var(--text-2)}
+.wwh b{display:block; color:var(--text); font-size:12.6px; margin-bottom:2px}
+.bad li b{color:var(--danger)}
+
+.arch{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:18px 20px; margin-bottom:14px}
+.arch h3{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.arch .meta{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); margin:12px 0}
+.arch .meta div{font-size:13.4px; color:var(--text-2)}
+.arch .meta b{display:block; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:2px}
+.pro-con{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.pro-con>div{border-radius:var(--radius-sm); padding:10px 13px; font-size:13.3px}
+.pro{background:var(--ok-soft)} .con{background:var(--danger-soft)}
+.pro ul,.con ul{margin:0; padding-left:1.05em}
+.flow{font-family:var(--mono); font-size:12.3px; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 13px; overflow-x:auto; color:var(--text-2)}
+
+table{width:100%; border-collapse:collapse; font-size:13.6px; margin:0}
+th,td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top}
+th{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700}
+.tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--surface); margin:.7em 0}
+
+.qa{border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--surface); margin-bottom:7px; overflow:hidden}
+.qa>summary{cursor:pointer; padding:10px 14px; font-weight:600; font-size:14.2px; list-style:none}
+.qa>summary::-webkit-details-marker{display:none}
+.qa>summary::before{content:"\25B8"; color:var(--accent); margin-right:8px; display:inline-block; transition:transform .15s}
+.qa[open]>summary::before{transform:rotate(90deg)}
+.qa>summary:hover{background:var(--surface-2)}
+.qa .ans{padding:11px 14px 13px 30px; font-size:13.8px; color:var(--text-2); border-top:1px solid var(--border)}
+
+.callout{border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px; font-size:14px; color:var(--text-2); margin:14px 0}
+.callout b{color:var(--text)}
+.callout.w{border-color:var(--warn); background:var(--warn-soft)}
+.callout.d{border-color:var(--danger); background:var(--danger-soft)}
+
+.folder-note{font-size:13.3px; color:var(--text-2)}
+.folder-note b{font-family:var(--mono); font-size:12.6px; color:var(--text)}
+
+footer{border-top:1px solid var(--border); padding:26px 0 60px; color:var(--muted); font-size:13px}
+
+@media (max-width:980px){
+  .shell{grid-template-columns:1fr; gap:0}
+  .sidenav{position:static; max-height:none; padding:14px 0 0; border-bottom:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; white-space:nowrap; margin-bottom:8px}
+  .sidenav h5{display:none}
+  .sidenav a{border-left:none; border-bottom:2px solid transparent; flex:none}
+  .sidenav a.on{border-left:none; border-bottom-color:var(--accent)}
+}
+@media print{.sidenav,.topbar,.tt-tools{display:none}.week{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><span class="dot"></span> Full-Stack Mastery Roadmap</div>
+    <div class="tb-progress" title="Days completed"><span class="bar"><i id="pbar"></i></span><span id="ptext">0 / 228</span></div>
+    <button class="iconbtn" id="themeBtn" type="button">Theme</button>
+    <button class="iconbtn" id="resetBtn" type="button">Reset</button>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="sidenav" id="sidenav">
+    <h5>Start here</h5>
+    <a href="#overview">Overview</a>
+    <a href="#how">How to use this plan</a>
+    <a href="#phases">The 8 phases</a>
+    <h5>The plan</h5>
+    <a href="#timetable">Master timetable (228 days)</a>
+    <h5>Deep dives</h5>
+    <a href="#tracks">Topic tracks</a>
+    <a href="#oop">OOP</a>
+    <a href="#architecture">Architectures</a>
+    <a href="#patterns">Design patterns</a>
+    <a href="#folders">Folder structures</a>
+    <h5>AI</h5>
+    <a href="#ai-dev">Developing with AI</a>
+    <h5>Apply &amp; verify</h5>
+    <a href="#projects">Capstone projects</a>
+    <a href="#checkpoints">Checkpoints</a>
+    <a href="#interview">Interview bank</a>
+    <a href="#mistakes">Mistakes to avoid</a>
+  </nav>
+
+  <main>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section id="overview">
+    <div class="hero">
+      <div class="eyebrow">38 weeks &middot; 6 days/week &middot; 2&ndash;3 hours/day</div>
+      <h1>From "I can build it" to "I can architect it."</h1>
+      <p class="sub">A senior-mentor plan for a working developer. You already ship React and Node. This plan closes the gaps that separate a productive developer from one who designs production systems: a real type system, real OOP, a second platform (C#/.NET), the architectural vocabulary to justify every decision you make &mdash; and, last, the engineering discipline to ship AI features that are measured rather than demonstrated.</p>
+      <div class="pill-row">
+        <span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">Node.js</span>
+        <span class="pill">C#</span><span class="pill">ASP.NET Core</span><span class="pill">EF Core</span>
+        <span class="pill">OOP + SOLID</span><span class="pill">Clean Architecture</span><span class="pill">Design Patterns</span>
+        <span class="pill">AI engineering</span><span class="pill">3 capstone projects</span>
+      </div>
+    </div>
+
+    <div class="grid g4" style="margin:26px 0">
+      <div class="kpi"><b>38</b><span>weeks &middot; 9 phases</span></div>
+      <div class="kpi"><b>228</b><span>study days</span></div>
+      <div class="kpi"><b>~570</b><span>focused hours</span></div>
+      <div class="kpi"><b>3+1</b><span>production-grade projects</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Why this order, and not the one you proposed</h3>
+      <p>You suggested OOP &rarr; TypeScript &rarr; React &rarr; Node &rarr; C# &rarr; .NET &rarr; Architecture &rarr; Projects. That is close to right. I changed three things, and here is the reasoning &mdash; you should be able to argue with it.</p>
+      <ol>
+        <li><b>TypeScript comes first, with OOP taught inside it.</b> Abstract OOP theory learned in a vacuum does not stick. You use TS/JS every day, so classes, interfaces, encapsulation and SOLID can be practised on code you actually ship, this week. By the time you reach C#, OOP is muscle memory and you only have to learn <i>syntax</i>, not <i>concepts</i>. That makes the C# phase roughly twice as fast.</li>
+        <li><b>React and Node come before C#, not after.</b> They convert immediately into value at work, and they give you concrete reference points ("Express middleware" &rarr; "ASP.NET Core middleware", "npm" &rarr; "NuGet", "Prisma" &rarr; "EF Core"). Learning .NET as a <i>comparison</i> to something you know well is far faster than learning it cold.</li>
+        <li><b>Architecture is taught twice.</b> A light pass is embedded in the Node and .NET phases (you build layered and clean-architecture code with your hands), then Phase 7 is the formal pass where you name the patterns, compare them, and learn when <i>not</i> to use them. Theory after practice, so it lands on something.</li>
+        <li><b>AI engineering comes last, and that is deliberate.</b> Phase 9 is the one topic where learning it first actively harms you. An LLM feature is 10% model call and 90% retrieval quality, permission scoping, schema validation, cost accounting, background jobs, error handling and measurement &mdash; every one of which is taught in Phases 3 and 6. Built on top of two real systems you already secured and instrumented, the AI phase teaches engineering. Built first, on nothing, it teaches you to produce demos that cannot ship. Phases 1&ndash;8 stand alone; Phase 9 adds a capability to a foundation that is already complete.</li>
+      </ol>
+      <p>One capstone is built <em>mid-plan</em> (Week 15&ndash;16) rather than all at the end. Building before you feel ready is the point: it exposes what you actually do not know, while there is still time to fix it.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOW TO USE ============ -->
+  <section id="how">
+    <div class="sec-head">
+      <div class="eyebrow">Operating manual</div>
+      <h2>How to use this plan</h2>
+      <p class="lede">The plan only works if the daily session has a fixed shape. Improvised study time becomes tutorial-watching within a week.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>The daily 2.5-hour block</h3>
+        <table>
+          <tr><td style="width:62px"><b>0:00</b></td><td><b>Recall (15 min)</b> &mdash; close all notes. Write, from memory, what you learned yesterday and one week ago. Only then check. This single habit is worth more than an extra hour of reading.</td></tr>
+          <tr><td><b>0:15</b></td><td><b>Learn (45 min)</b> &mdash; one concept, from docs or a reference book. Not video. You are allowed video only when a concept has a visual/temporal shape (event loop, rendering, request pipeline).</td></tr>
+          <tr><td><b>1:00</b></td><td><b>Build (60&ndash;75 min)</b> &mdash; the day's exercise. Code it without copying. If you get stuck for 15 minutes, look it up, then close the tab and retype it from memory.</td></tr>
+          <tr><td><b>2:15</b></td><td><b>Log (15 min)</b> &mdash; append to <code>NOTES.md</code>: what &rarr; why &rarr; when to use &rarr; the mistake I nearly made. Add 1&ndash;2 interview questions to your own question bank.</td></tr>
+        </table>
+        <p style="font-size:13.5px;color:var(--muted);margin-top:10px">On a 3-hour day, extend Build. Never extend Learn &mdash; input without output is the failure mode this plan is designed around.</p>
+      </div>
+
+      <div class="card">
+        <h3>Rules that make it stick</h3>
+        <ul>
+          <li><b>One repo per phase.</b> Push every day. A commit-a-day graph is your real progress bar, not this page's checkboxes.</li>
+          <li><b>Day 6 is never new material.</b> It is: build the mini-project, redo the week's hardest exercise from scratch, answer the interview questions aloud, take the checkpoint.</li>
+          <li><b>The "explain it" test.</b> If you cannot explain a concept in 4 sentences to a mid-level developer, including <i>when not to use it</i>, you do not know it. Write the 4 sentences.</li>
+          <li><b>No tutorial without a divergence.</b> If you follow a guide, change something deliberately &mdash; a different database, an extra requirement, stricter types. Following exactly teaches nothing.</li>
+          <li><b>Read real source.</b> Once a week, read 30 minutes of a well-built open-source repo in that week's stack. Imitating good code is the fastest style transfer there is.</li>
+          <li><b>Do not skip a checkpoint.</b> If you fail one, spend Day 6 of the <i>next</i> week on the gap. Moving on with a hole in the foundation is how people get stuck at mid-level for five years.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout w" style="margin-top:14px">
+      <b>The realistic failure mode:</b> weeks 1&ndash;6 feel great, week 7 gets busy at work, you miss four days, and the plan dies. Plan for it now. A missed day is <i>skipped</i>, not <i>made up</i> &mdash; you push the calendar, you never double up. And every 5th week, take Days 5&ndash;6 as pure revision if you are behind. Finishing in 48 weeks is a success; abandoning at week 8 is not. Stopping at Week 32 with the foundation complete is also a success &mdash; Phase 9 is additive, not load-bearing.
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>Tools to set up before Day 1 (do this on a Sunday)</h3>
+      <div class="grid g3" style="margin-top:10px">
+        <div><b style="font-size:13px">Everywhere</b><ul style="font-size:13.4px"><li>Git + a GitHub account with a repo per phase</li><li>Docker Desktop (Postgres, Redis, test containers)</li><li>VS Code + ESLint, Prettier, Error Lens</li><li>A <code>NOTES.md</code> per repo &mdash; your second brain</li></ul></div>
+        <div><b style="font-size:13px">JS/TS side</b><ul style="font-size:13.4px"><li>Node 20+ LTS, pnpm</li><li>Vite, Vitest, tsx, tsup</li><li>Postgres 16 in Docker, Prisma or Drizzle</li><li>Thunder Client / Bruno for API calls</li></ul></div>
+        <div><b style="font-size:13px">.NET side</b><ul style="font-size:13.4px"><li>.NET 8/9 SDK</li><li>VS Code + C# Dev Kit (or Visual Studio Community / Rider)</li><li><code>dotnet-ef</code> global tool</li><li>Same Postgres container &mdash; use Npgsql, not SQL Server, so both stacks share infrastructure</li></ul></div>
+        <div><b style="font-size:13px">Phase 9 only (set up in Week 33)</b><ul style="font-size:13.4px"><li>An Anthropic API key with a <b>spend limit set before your first call</b></li><li><code>@anthropic-ai/sdk</code> and the <code>Anthropic</code> NuGet package</li><li><code>pgvector</code> extension on the Postgres you already run &mdash; no separate vector database</li><li>A coding assistant (Claude Code, Copilot) &mdash; but read <a href="#ai-dev">Developing with AI</a> before you use it on this plan</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHASES ============ -->
+  <section id="phases">
+    <div class="sec-head">
+      <div class="eyebrow">Structure</div>
+      <h2>The 8 phases</h2>
+      <p class="lede">Each phase ends with something you can show: a library, a refactor, a skeleton you reuse, or a deployed app.</p>
+    </div>
+    <div class="grid" id="phaseList"></div>
+  </section>
+
+  <!-- ============ TIMETABLE ============ -->
+  <section id="timetable">
+    <div class="sec-head">
+      <div class="eyebrow">The master timetable</div>
+      <h2>Day by day, all 228 days</h2>
+      <p class="lede">Day 1&ndash;5 of each week is new material plus its exercise. Day 6 is always build, revise, drill, checkpoint. Tick days off &mdash; progress is saved in this browser.</p>
+    </div>
+    <div class="tt-tools">
+      <input type="search" id="ttSearch" placeholder="Search topics: generics, JWT, EF Core, CQRS..." />
+      <button class="chip on" data-p="all" type="button">All</button>
+      <button class="chip" data-p="1" type="button">P1 TS+OOP</button>
+      <button class="chip" data-p="2" type="button">P2 React</button>
+      <button class="chip" data-p="3" type="button">P3 Node</button>
+      <button class="chip" data-p="4" type="button">P4 Project A</button>
+      <button class="chip" data-p="5" type="button">P5 C#</button>
+      <button class="chip" data-p="6" type="button">P6 ASP.NET</button>
+      <button class="chip" data-p="7" type="button">P7 Arch</button>
+      <button class="chip" data-p="8" type="button">P8 Project B</button>
+      <button class="chip" data-p="9" type="button">P9 AI</button>
+      <button class="chip" id="expandAll" type="button">Expand all</button>
+    </div>
+    <div id="weekList"></div>
+  </section>
+
+  <!-- ============ TRACKS ============ -->
+  <section id="tracks">
+    <div class="sec-head">
+      <div class="eyebrow">Deep dives</div>
+      <h2>Topic tracks</h2>
+      <p class="lede">What to learn, in what order, and what a senior would actually check you on. The timetable tells you <i>when</i>; this tells you <i>what good looks like</i>.</p>
+    </div>
+    <div id="trackList"></div>
+  </section>
+
+  <!-- ============ OOP ============ -->
+  <section id="oop">
+    <div class="sec-head">
+      <div class="eyebrow">Foundations</div>
+      <h2>OOP, properly</h2>
+      <p class="lede">Most developers can recite the four pillars and still write procedural code in classes. The goal here is the judgement layer: knowing which relationship to model, and when a class is the wrong tool.</p>
+    </div>
+    <div id="oopList"></div>
+    <div class="card" style="margin-top:16px">
+      <h3>SOLID, with the version that is actually useful</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th style="width:96px">Principle</th><th>The useful form</th><th>The smell it removes</th></tr></thead>
+          <tbody>
+            <tr><td><b>S</b>RP</td><td>A module should have one reason to change &mdash; one <i>actor</i> who can request a change to it.</td><td>A <code>UserService</code> that does validation, email, billing and PDF export. Four teams, one file, endless merge conflicts.</td></tr>
+            <tr><td><b>O</b>CP</td><td>Add behaviour by adding code, not by editing a switch statement that already works.</td><td>Every new payment provider means editing <code>processPayment()</code> and re-testing all providers.</td></tr>
+            <tr><td><b>L</b>SP</td><td>A subtype must be usable anywhere the base type is, without the caller knowing. If you need <code>instanceof</code> at the call site, the hierarchy is wrong.</td><td><code>ReadOnlyRepository extends Repository</code> that throws on <code>save()</code>. Classic LSP break.</td></tr>
+            <tr><td><b>I</b>SP</td><td>Small, role-shaped interfaces. Consumers should not be forced to depend on methods they never call.</td><td>An <code>IRepository</code> with 22 methods where every test double has to stub 22 methods.</td></tr>
+            <tr><td><b>D</b>IP</td><td>Both the policy and the detail depend on an abstraction that the <i>policy</i> owns. The interface lives with the business logic, not with the database code.</td><td>Your order service imports Prisma / <code>DbContext</code> directly, so you cannot test it or swap storage.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout d"><b>The senior-level caveat you must internalise:</b> SOLID is a set of forces, not laws. Applying all five to a 40-line CRUD endpoint produces six files, three interfaces and one very confused reviewer. Apply a principle when you feel the pain it prevents &mdash; a second implementation appearing, a test you cannot write, a merge conflict that keeps recurring. "I applied DIP because I needed to test this without a database" is a senior answer. "I applied DIP because SOLID" is a junior one.</div>
+    </div>
+  </section>
+
+  <!-- ============ ARCHITECTURE ============ -->
+  <section id="architecture">
+    <div class="sec-head">
+      <div class="eyebrow">Phase 7 reference</div>
+      <h2>Architectures: what, why, when</h2>
+      <p class="lede">Every architecture is a trade of one kind of pain for another. The skill is not knowing the diagrams &mdash; it is knowing which pain you are currently in.</p>
+    </div>
+    <div id="archList"></div>
+    <div class="card">
+      <h3>The decision guide</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Situation</th><th>Choose</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Solo dev / small team, CRUD-heavy admin app, requirements still moving</td><td><b>Layered / MVC</b></td><td>Lowest ceremony. Do not pay abstraction tax for flexibility you will never use.</td></tr>
+            <tr><td>Business rules are the hard part (pricing, eligibility, scheduling, accounting)</td><td><b>Clean / Onion</b></td><td>Rules become testable in isolation and survive framework and database changes.</td></tr>
+            <tr><td>One product, 3&ndash;5 teams, deployment is not the bottleneck</td><td><b>Modular monolith</b></td><td>Team autonomy without distributed-systems cost. The correct default for almost everyone.</td></tr>
+            <tr><td>Independent scaling / independent release cadence is a real, measured need</td><td><b>Microservices</b></td><td>Only when the organisational cost is already being paid. It is an org solution first, a tech one second.</td></tr>
+            <tr><td>Many consumers react to the same business fact; workflows are long-running</td><td><b>Event-driven</b></td><td>Producers stop knowing about consumers. Buy decoupling, pay in eventual consistency and debugging.</td></tr>
+            <tr><td>Reads and writes have wildly different shapes and load</td><td><b>CQRS</b> (inside any of the above)</td><td>Optimise each side separately. Not an architecture on its own &mdash; a pattern you add to one.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>The question that beats every diagram:</b> "What change do I expect to be frequent, and does this structure make that change cheap?" If the frequent change is "add a field to a form", Clean Architecture just made your life worse by requiring edits in five layers. If the frequent change is "support a second payment provider" or "the same rules, a different delivery mechanism", it just saved you.</div>
+    </div>
+  </section>
+
+  <!-- ============ PATTERNS ============ -->
+  <section id="patterns">
+    <div class="sec-head">
+      <div class="eyebrow">Phase 7 reference</div>
+      <h2>Design patterns you will actually use</h2>
+      <p class="lede">The 23 GoF patterns are not equally useful in 2026. These are ranked by how often they show up in real React/Node/.NET code, with the problem each one solves.</p>
+    </div>
+    <div id="patternList"></div>
+  </section>
+
+  <!-- ============ FOLDERS ============ -->
+  <section id="folders">
+    <div class="sec-head">
+      <div class="eyebrow">Reference</div>
+      <h2>Professional folder structures</h2>
+      <p class="lede">A folder structure is a physical encoding of your architecture. If the folders do not tell a newcomer where things go, the architecture exists only in your head.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <h3>The three rules behind every good structure</h3>
+      <ol>
+        <li><b>Organise by feature, not by technical kind.</b> <code>/features/orders/</code> beats <code>/controllers/ /services/ /models/</code> the moment you have more than ~15 files, because a change request ("orders now need approval") touches one folder instead of seven.</li>
+        <li><b>Dependencies point one way.</b> A feature may use <code>shared/</code>. <code>shared/</code> may never import a feature. Features should not import each other's internals &mdash; only their public <code>index.ts</code>. Enforce this with a linter, not with discipline.</li>
+        <li><b>Depth is a cost.</b> Every extra level is a tax on every future developer. Add a layer only when you can name the rule it enforces.</li>
+      </ol>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3><span class="tag" style="background:var(--c-react);color:#fff;border:0">React + TypeScript</span></h3>
+        <pre><code>src/
+  app/                  # composition root - wires everything, owns nothing
+    router.tsx          #   route table, lazy imports, guards
+    providers.tsx       #   QueryClient, Theme, Auth, ErrorBoundary nesting
+    main.tsx
+  features/             # the app IS this folder
+    auth/
+      api/              #   endpoint fns + zod response schemas
+      components/       #   feature-private UI (never imported outside)
+      hooks/            #   useLogin, useSession
+      types.ts
+      index.ts          #   PUBLIC surface. Nothing else is importable.
+    orders/
+      api/ components/ hooks/ utils/
+      pages/            #   route-level screens for this feature
+      index.ts
+  components/ui/        # design system. Dumb, generic, zero business logic.
+    button.tsx input.tsx dialog.tsx data-table.tsx
+  hooks/                # genuinely global: useDebounce, useMediaQuery
+  lib/                  # third-party wiring: axios client, queryClient, dayjs
+  config/               # env.ts (zod-validated), constants, feature flags
+  types/                # global.d.ts, api contracts shared across features
+  styles/
+  test/                 # msw handlers, render helpers, fixtures</code></pre>
+        <div class="folder-note">
+          <p><b>app/</b> is the only place allowed to know about every feature. It is the composition root &mdash; the React equivalent of <code>Program.cs</code>.</p>
+          <p><b>features/x/index.ts</b> is the contract. If <code>orders</code> needs something from <code>auth</code>, it imports from <code>features/auth</code>, never <code>features/auth/hooks/useSession</code>. Enforce with <code>eslint-plugin-boundaries</code> or an <code>import/no-restricted-paths</code> rule.</p>
+          <p><b>components/ui/</b> must never import from <code>features/</code>. If a "generic" component needs an order type, it is not generic &mdash; move it into the feature.</p>
+          <p><b>config/env.ts</b> parses <code>import.meta.env</code> through zod at startup so a missing variable fails the build, not a user's checkout at 2am.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><span class="tag" style="background:var(--c-node);color:#fff;border:0">Node + TypeScript (modular monolith)</span></h3>
+        <pre><code>src/
+  main.ts               # bootstrap: build container, start server, signals
+  app.ts                # express app assembly, middleware order
+  config/
+    env.ts              #   zod-parsed process.env - throws at boot
+    index.ts
+  modules/
+    orders/
+      order.routes.ts       # HTTP shape only: path, middleware, delegate
+      order.controller.ts   # req/res <-> DTO. No business logic. Ever.
+      order.service.ts      # use cases + transaction boundaries
+      order.repository.ts   # the ONLY file that talks to the ORM
+      order.schema.ts       # zod DTOs in/out; types inferred from these
+      order.types.ts        # domain types, not DB rows
+      order.events.ts       # domain events this module publishes
+      __tests__/
+      index.ts              # public surface for other modules
+    users/ billing/ notifications/
+  shared/
+    errors/             #   AppError, NotFoundError, ConflictError + http map
+    middleware/         #   auth, rbac, validate(schema), rateLimit, errorHandler
+    db/                 #   prisma client, transaction helper, migrations
+    logger/             #   pino + redaction + requestId via AsyncLocalStorage
+    cache/ queue/ mailer/ storage/
+    utils/
+  jobs/                 # BullMQ workers + schedules (separate process entry)
+  types/express.d.ts    # augment Request with user, requestId, tenantId</code></pre>
+        <div class="folder-note">
+          <p><b>routes &rarr; controller &rarr; service &rarr; repository</b> is the whole discipline. Each layer may call the one below and never the one above. A controller that imports Prisma is a bug, not a shortcut.</p>
+          <p><b>order.schema.ts</b> is the single source of truth: zod schema defined once, request type inferred with <code>z.infer</code>, validation middleware uses the same object. Types and runtime checks can never drift.</p>
+          <p><b>shared/errors</b> gives you one <code>errorHandler</code> at the end of the middleware chain. Services throw <code>new NotFoundError('Order', id)</code>; nothing below the handler ever touches <code>res.status()</code>.</p>
+          <p><b>jobs/</b> has its own entry point so workers scale separately from the API. Same code, different process &mdash; this is the cheapest scaling decision you will ever make.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card">
+        <h3><span class="tag" style="background:var(--c-cs);color:#fff;border:0">ASP.NET Core &mdash; Clean Architecture</span></h3>
+        <pre><code>src/
+  Atlas.Domain/                    # zero dependencies. Pure C#.
+    Entities/        Order.cs Customer.cs
+    ValueObjects/    Money.cs Email.cs Address.cs
+    Enums/           Interfaces/  (repository contracts live HERE)
+    Events/          OrderPlacedEvent.cs
+    Exceptions/      DomainException.cs
+  Atlas.Application/               # use cases. Depends on Domain only.
+    Common/
+      Behaviours/    ValidationBehaviour.cs LoggingBehaviour.cs
+      Interfaces/    IAppDbContext.cs ICurrentUser.cs IDateTime.cs
+      Mappings/      Models/  Result.cs PagedList.cs
+    Orders/
+      Commands/CreateOrder/   CreateOrderCommand.cs + Handler + Validator
+      Queries/GetOrders/      GetOrdersQuery.cs + Handler + Dto
+  Atlas.Infrastructure/            # all the "how". Depends on Application.
+    Persistence/
+      AppDbContext.cs
+      Configurations/  OrderConfiguration.cs   (IEntityTypeConfiguration)
+      Migrations/  Interceptors/ AuditableEntityInterceptor.cs
+      Repositories/
+    Identity/  JwtTokenService.cs  Services/ EmailService.cs
+    Caching/ Files/ BackgroundJobs/
+    DependencyInjection.cs         # one AddInfrastructure() extension
+  Atlas.Api/                       # thin. HTTP only.
+    Program.cs                     # composition root
+    Controllers/ OrdersController.cs
+    Middleware/  ExceptionHandlingMiddleware.cs
+    Filters/ Extensions/ appsettings.json
+tests/
+  Atlas.Domain.UnitTests/  Atlas.Application.UnitTests/
+  Atlas.Api.IntegrationTests/      # WebApplicationFactory + Testcontainers</code></pre>
+        <div class="folder-note">
+          <p><b>The dependency rule is the whole point:</b> Api &rarr; Infrastructure &rarr; Application &rarr; Domain. Never the reverse. Verify it by opening each <code>.csproj</code> &mdash; <code>Atlas.Domain.csproj</code> must have zero <code>ProjectReference</code> and ideally zero NuGet packages.</p>
+          <p><b>Interfaces live with the consumer.</b> <code>IOrderRepository</code> sits in <code>Domain</code> (or <code>Application</code>); the implementation sits in <code>Infrastructure</code>. That inversion is what lets you test business rules with no database at all.</p>
+          <p><b>Behaviours/</b> are MediatR pipeline steps &mdash; validation, logging, transactions run for every command without a single line inside handlers. This is the .NET answer to Express middleware, applied at the use-case level instead of the HTTP level.</p>
+          <p><b>Api/ stays thin.</b> A controller action should be 3 lines: build the command, send it, return the result.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><span class="tag" style="background:var(--c-proj);color:#fff;border:0">Full-stack monorepo</span></h3>
+        <pre><code>repo/
+  apps/
+    web/                # React + TS (structure as above)
+    api/                # Node + TS  (or /api-dotnet for the .NET version)
+    worker/             # background jobs
+  packages/
+    shared-types/       # DTOs generated from zod / OpenAPI - one source of truth
+    ui/                 # design system consumed by every frontend
+    config/             # eslint, tsconfig, prettier bases
+    utils/
+  infra/
+    docker/  docker-compose.yml
+    migrations/
+    .github/workflows/  ci.yml deploy.yml
+  docs/
+    adr/                # 0001-use-modular-monolith.md, 0002-choose-postgres.md
+    architecture.md     # C4 context + container diagrams
+    ONBOARDING.md       # "clone to running app" in under 10 minutes
+  package.json          # pnpm workspaces + turbo pipeline</code></pre>
+        <div class="folder-note">
+          <p><b>packages/shared-types</b> is the highest-leverage folder in a full-stack repo: define the API contract once, and a backend change that breaks the frontend fails at compile time instead of in production.</p>
+          <p><b>docs/adr/</b> &mdash; Architecture Decision Records. One short markdown file per significant decision: context, options, decision, consequences. Writing these is the single most senior-looking habit you can build, and it is the thing interviewers probe for when they ask "why did you choose X?".</p>
+          <p><b>ONBOARDING.md</b> is your own test: if a new developer cannot go from clone to a running app in 10 minutes, your setup is too complicated, and that complexity is costing your team every single week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3><span class="tag" style="background:var(--c-ai);color:#fff;border:0">AI features inside an existing app</span></h3>
+      <pre><code>application/
+  ports/
+    ILlmClient.ts           # the contract YOUR code owns. No SDK types here.
+    IRetriever.ts           # search(query, scope) -> Chunk[]  - scope is mandatory
+  use-cases/
+    summarise-deal.ts       # depends on the ports only. Testable with a fake.
+infrastructure/
+  ai/
+    anthropic-client.ts     # the ONLY file that imports the SDK
+    tools/                  #   tool definitions + executors, one file each
+    streaming.ts            #   SSE bridge to the transport layer
+    cost-meter.ts           #   tokens + price per call, written to your logs
+  retrieval/
+    pgvector-retriever.ts   #   hybrid search; ALWAYS takes the caller's scope
+    chunker.ts  embedder.ts
+prompts/
+  deal-summary/
+    v3.md                   # versioned, reviewable, diffable artifacts
+    v2.md                   #   keep old versions - rollback is a config change
+evals/
+  deal-summary/
+    cases.jsonl             #   real traffic, not synthetic, where possible
+    grader.ts               #   assertions or judge - defensible either way
+    run.ts                  #   runs in CI; the score gates release
+jobs/
+  ingest-documents.ts       # re-index on record change, incrementally</code></pre>
+      <div class="folder-note">
+        <p><b>ports/</b> is the whole architectural idea. <code>ILlmClient</code> is defined by your application layer, not by the SDK &mdash; which is exactly the rule you applied to <code>IOrderRepository</code>. It means a use case can be unit tested with a deterministic fake, at zero cost, with no network and no API key.</p>
+        <p><b>infrastructure/ai/</b> is the only place allowed to import the vendor SDK. If that import appears anywhere in <code>application/</code> or <code>domain/</code>, the dependency rule has been broken and your AI logic is now untestable.</p>
+        <p><b>prompts/</b> holds prompts as files with version numbers, because a prompt is a deployable artifact with behaviour. In a handler as a string literal it cannot be diffed, reviewed, A/B tested or rolled back without a deploy.</p>
+        <p><b>evals/</b> next to the feature, running in CI. Without it, "did that prompt change help?" is unanswerable, and you will eventually ship a regression you cannot see.</p>
+        <p><b>The scope parameter on <code>IRetriever</code> is not optional by design.</b> Making the caller's permission scope a required argument means the type system refuses to let you forget it &mdash; the same structural trick as tenant scoping in the repository layer.</p>
+      </div>
+    </div>
+
+    <div class="callout w" style="margin-top:14px"><b>Folder-structure mistakes to avoid:</b> deep barrel files that re-export everything (they wreck tree-shaking and create import cycles); a <code>utils/</code> folder that becomes a 3,000-line junk drawer &mdash; if you cannot name the file precisely, the function belongs in a feature; mirroring the backend folder tree in the frontend just because it looks tidy; and a <code>components/</code> folder with 120 flat files. Also: never let a folder structure be aspirational. If half the code ignores it, it is misinformation.</div>
+  </section>
+
+  <!-- ============ DEVELOPING WITH AI ============ -->
+  <section id="ai-dev">
+    <div class="sec-head">
+      <div class="eyebrow">Cross-cutting &middot; starts Week 1</div>
+      <h2>Developing with AI while you are still learning</h2>
+      <p class="lede">This is separate from Phase 9. Phase 9 is <i>building</i> AI features. This is about the assistant sitting in your editor for the next 38 weeks &mdash; which, used without a rule, is the single biggest threat to this plan working.</p>
+    </div>
+
+    <div class="callout d">
+      <b>The honest problem.</b> Learning happens in the gap between not knowing and knowing &mdash; the fifteen uncomfortable minutes where you are stuck. An AI assistant closes that gap instantly and pleasantly, and you finish the day with working code and no new capability. It feels like the most productive you have ever been. Six months later you cannot write a reducer without it. This is not an argument against using AI; it is an argument for using it <i>deliberately</i>, which almost nobody does.
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <h3>The rule: AI is scoped to the block</h3>
+        <p style="font-size:14px">Apply it to the daily 2.5-hour block from the operating manual. The distinction is not "AI good" or "AI bad" &mdash; it is whether you are currently trying to build a capability or currently trying to get something done.</p>
+        <div class="tbl-wrap" style="margin-top:10px">
+          <table>
+            <thead><tr><th style="width:86px">Block</th><th style="width:76px">AI</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td><b>Recall</b></td><td><span class="tag" style="background:var(--danger-soft);color:var(--danger);border:0">No</span></td><td>The whole value is retrieval from your own memory. Checking with AI first destroys the measurement.</td></tr>
+              <tr><td><b>Learn</b></td><td><span class="tag warn">Limited</span></td><td>Read the primary source first. Then AI is excellent for "explain this differently", "why does this exist", and "what would break without it".</td></tr>
+              <tr><td><b>Build</b></td><td><span class="tag" style="background:var(--danger-soft);color:var(--danger);border:0">No</span></td><td>This is where capability forms. Write the exercise yourself, badly, from a blank file. The 15-minute rule applies: stuck for 15 minutes, look it up in docs, close the tab, retype from memory.</td></tr>
+              <tr><td><b>Review</b></td><td><span class="tag ok">Yes</span></td><td>After it works: "critique this like a staff engineer" is one of the highest-value prompts available to you. You get review at a level you may not have access to at work.</td></tr>
+              <tr><td>Everything else</td><td><span class="tag ok">Yes</span></td><td>Work code outside the topic you are learning, config, boilerplate, scripts, docs. Unrestricted &mdash; that time is not study time.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Four prompts that make you better, not weaker</h3>
+        <ul style="font-size:14px">
+          <li><b>Explain-back critique.</b> "Here is my explanation of how the event loop handles this. Tell me what is wrong or missing, and do not be generous." You produce first; AI grades. This is the reverse of the usual flow and it is the one that builds recall.</li>
+          <li><b>Socratic mode.</b> "Ask me five increasingly hard questions about EF Core change tracking. Do not give answers until I have attempted each." A free examiner, on demand, at whatever difficulty you need.</li>
+          <li><b>Staff-engineer review.</b> "Review this module for correctness, security and structure. Be specific about the failure scenario for each finding." Then &mdash; and this matters &mdash; <i>verify every finding yourself</i>. Some will be wrong, and catching those is its own exercise.</li>
+          <li><b>Trade-off interrogation.</b> "Argue the strongest case against this design, then the strongest case for." AI defaults to agreeing with you; forcing both sides is how you get a real second opinion instead of a mirror.</li>
+        </ul>
+        <div class="callout d" style="margin-bottom:0"><b>The prompt to never use during Build:</b> "Write the solution to this exercise." You will read it, understand it, feel you have learned it, and retain nothing. Understanding someone else's solution and being able to produce one are different skills, and only the second one gets you hired or promoted.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>Then: using AI as a professional, which is a real skill</h3>
+      <p>Once a topic is learned, the restriction lifts entirely and a different skill takes over. Working effectively with an AI assistant is now a genuine differentiator, and "how do you use AI in your work?" is a real interview question with good and bad answers.</p>
+      <div class="grid g2" style="margin-top:12px">
+        <div>
+          <b style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ok)">Where it earns its place</b>
+          <ul style="font-size:14px">
+            <li>Boilerplate you have written a hundred times &mdash; CRUD scaffolding, DTO mapping, test fixtures, config</li>
+            <li>Exploring an unfamiliar API surface fast, then verifying against the real docs</li>
+            <li>Mechanical refactors and migrations across many files</li>
+            <li>A first-pass review before a human sees your PR</li>
+            <li>Turning your bullet points into an ADR, a README, or a PR description</li>
+            <li>Rubber-ducking a bug &mdash; often you solve it while writing the prompt</li>
+            <li>Test generation, <i>after</i> you have decided what should be tested</li>
+          </ul>
+        </div>
+        <div>
+          <b style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--danger)">Where it costs you</b>
+          <ul style="font-size:14px">
+            <li>Architecture decisions &mdash; it will agree with whatever you proposed, which feels like validation and is not</li>
+            <li>Security-critical code you cannot fully audit yourself</li>
+            <li>Anything in a domain where you cannot evaluate the output &mdash; you are accepting risk you cannot see</li>
+            <li>Large diffs. If you cannot review it line by line, you did not write it and you do not own it, but you will be on call for it</li>
+            <li>Library or version specifics &mdash; confidently stated, sometimes out of date. Verify against docs</li>
+            <li>The subtly-wrong answer that compiles, passes your tests, and fails in production. This is the expensive failure mode</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout"><b>The principle that governs all of it:</b> you can only safely accept what you can review. Your review ability is the hard ceiling on how much leverage AI gives you &mdash; which means every week of this plan raises that ceiling. A developer who deeply understands transactions, RBAC and the dependency rule gets enormous value from an assistant, because they can spot the bad suggestion in two seconds. A developer who does not gets a faster way to produce code they cannot defend. Same tool, opposite outcomes, and the difference is exactly what the 38 weeks are for.</div>
+      <p style="font-size:14px;margin-top:12px"><b>Practical habits worth adopting now:</b> keep a rules file in each repo (<code>CLAUDE.md</code>, <code>.cursorrules</code> or equivalent) describing your conventions, folder structure and the things you never want done &mdash; it converts repeated corrections into a one-time cost. Work in small diffs you can actually read. Ask for the plan before the code on anything non-trivial. And when it produces something you would not have written, decide whether that is because it is better or because it is wrong &mdash; answering that question honestly, several times a week, is itself one of the fastest ways to improve.</p>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects">
+    <div class="sec-head">
+      <div class="eyebrow">Apply everything</div>
+      <h2>Capstone projects</h2>
+      <p class="lede">Two required, one optional. Both required projects are the same class of software &mdash; a business system with roles, money, workflow and reporting &mdash; deliberately, so the second one isolates the <i>platform</i> difference rather than the <i>domain</i> difference.</p>
+    </div>
+    <div id="projectList"></div>
+    <div class="card" style="margin-top:16px">
+      <h3>The bar both projects must clear</h3>
+      <p>These are not optional polish. They are what makes the difference between a portfolio toy and evidence that you can work on production systems &mdash; and they are exactly what a technical interviewer will dig into.</p>
+      <div class="grid g2" style="margin-top:10px">
+        <div>
+          <ul style="font-size:14px">
+            <li><b>Architecture you can defend</b> &mdash; an ADR for every major decision, and an honest paragraph on what you would do differently at 100&times; the scale.</li>
+            <li><b>Auth done properly</b> &mdash; hashed passwords (argon2/bcrypt), short-lived access tokens, rotating refresh tokens, revocation, logout-everywhere.</li>
+            <li><b>Real RBAC</b> &mdash; a permission matrix, checks enforced on the server (the UI only <i>hides</i>, the API <i>denies</i>), and resource-ownership checks that stop user A reading user B's invoice.</li>
+            <li><b>A considered schema</b> &mdash; normalised, indexed for the actual queries, foreign keys enforced, soft-delete and audit columns, and migrations that run in CI.</li>
+          </ul>
+        </div>
+        <div>
+          <ul style="font-size:14px">
+            <li><b>Validation at the boundary</b> &mdash; one schema per endpoint, typed from the same source, with structured field-level errors the frontend can render.</li>
+            <li><b>One error contract</b> &mdash; every failure returns the same shape with a stable machine-readable code. No stack traces to clients, no leaked internals.</li>
+            <li><b>Structured logging + correlation IDs</b> &mdash; one request traceable end-to-end, with PII redacted.</li>
+            <li><b>Tests that would catch a regression</b> &mdash; unit tests on business rules, integration tests on the API against a real database in a container, one E2E happy path.</li>
+            <li><b>Deployed, with a README</b> &mdash; live URL, seeded demo accounts per role, architecture diagram, and a short "what I would improve" section.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHECKPOINTS ============ -->
+  <section id="checkpoints">
+    <div class="sec-head">
+      <div class="eyebrow">Verification</div>
+      <h2>Checkpoints</h2>
+      <p class="lede">Do these closed-book, out loud or in an editor with no help. If you cannot, the topic is not learned &mdash; and that is useful information, not failure.</p>
+    </div>
+    <div id="checkpointList"></div>
+  </section>
+
+  <!-- ============ INTERVIEW ============ -->
+  <section id="interview">
+    <div class="sec-head">
+      <div class="eyebrow">Preparation</div>
+      <h2>Interview question bank</h2>
+      <p class="lede">Answer each in under 90 seconds, then add the sentence most candidates miss. Expand for the answer that separates a senior response from a memorised one.</p>
+    </div>
+    <div id="interviewList"></div>
+  </section>
+
+  <!-- ============ MISTAKES ============ -->
+  <section id="mistakes">
+    <div class="sec-head">
+      <div class="eyebrow">Anti-patterns</div>
+      <h2>Mistakes and bad practices to avoid</h2>
+      <p class="lede">Grouped by stack. Most of these are things that work fine in a demo and hurt badly at month six.</p>
+    </div>
+    <div id="mistakeList"></div>
+  </section>
+
+  <footer>
+    <p><b>Built as a working document.</b> Fork it, cut what does not apply, extend the weeks that matter to your job. A roadmap you edited is one you will follow.</p>
+    <p>Progress is stored in this browser only (localStorage) &mdash; it will not follow you to another device.</p>
+  </footer>
+
+  </main>
+</div>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
